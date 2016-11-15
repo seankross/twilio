@@ -1,28 +1,32 @@
-library(httr)
-library(jsonlite)
-
-get_sid <- function(){
-  sid <- Sys.getenv("TWILIO_SID")
-  if(identical(sid, "")){
-    stop("Please set environmental variable TWILIO_SID.",
-         call. = FALSE)
-  }
-
-  sid
-}
-
-get_token <- function(){
-  token <- Sys.getenv("TWILIO_TOKEN")
-  if(identical(token, "")){
-    stop("Please set environmental variable TWILIO_TOKEN.",
-         call. = FALSE)
-  }
-
-  token
-}
-
+#' Send an SMS or MMS Message
+#'
+#' @param to A phone number which will receieve the message.
+#' @param from A phone number which will send the message.
+#' @param body The body of the message.
+#' @param media_url A url containing media to be sent in a message.
+#' @return A \code{twilio_message} object.
 #' @importFrom jsonlite fromJSON
-#' @importFrom httr modify_url POST authenticate http_type status_code
+#' @importFrom httr modify_url POST authenticate http_type content
+#' @export
+#' @examples
+#' \dontrun{
+#'
+#' # Set API credentials
+#' # You only need to do this once per R session
+#' Sys.setenv(TWILIO_SID = "M9W4Ozq8BFX94w5St5hikg7UV0lPpH8e56")
+#' Sys.setenv(TWILIO_TOKEN = "483H9lE05V0Jr362eq1814Li2N1I424t")
+#'
+#' # Send a simple text message
+#' send_message("2125557634", "9178675903", "Hello from R!")
+#'
+#' # Send a picture message
+#' send_message("2125557634", "9178675903", "https://www.r-project.org/logo/Rlogo.png")
+#'
+#' # Send a picture message with text
+#' send_message("2125557634", "9178675903", "Do you like the new logo?",
+#'     "https://www.r-project.org/logo/Rlogo.png")
+#'
+#' }
 send_message <- function(to, from, body = NULL, media_url = NULL){
   if(is.null(body) && is.null(media_url)){
     stop("Please specify body, media_url, or both.",
@@ -44,49 +48,7 @@ send_message <- function(to, from, body = NULL, media_url = NULL){
 
   parsed <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
 
-  if(!(status_code(resp) %in% 200:201)){
-    stop(
-      sprintf(
-        "Twilio API request failed [%s]\n%s\n<%s>",
-        status_code(resp),
-        parsed$message,
-        parsed$more_info
-      ),
-      call. = FALSE
-    )
-  }
+  check_status(respparsed <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE))
 
-  parsed$account_sid <- NULL
-  parsed$messaging_service_sid <- NULL
-  parsed$uri <- NULL
-  parsed$subresource_uris <- NULL
-
-  structure(
-    parsed,
-    class = "sent_message"
-  )
+  twilio_message(parsed)
 }
-
-print.sent_message <- function(x, ...){
-  cat("From: ", x$from, "\n",
-      "To: ", x$to, "\n",
-      "Body: ", x$body, "\n",
-      "Status: ", x$status, sep = "")
-  invisible(x)
-}
-
-#' @importFrom jsonlite fromJSON
-#' @importFrom httr modify_url GET authenticate http_type status_code
-get_messages <- function(){
-  base_url <- "https://api.twilio.com/"
-  path <- paste("2010-04-01", "Accounts", get_sid(), "Messages.json", sep = "/")
-  url <- modify_url(base_url, path = path)
-  resp <- GET(url, authenticate(get_sid(), get_token()))
-
-  if(http_type(resp) != "application/json"){
-    stop("Twilio API did not return JSON.", call. = FALSE)
-  }
-  parsed <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
-  parsed
-}
-
