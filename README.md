@@ -33,7 +33,7 @@ send_message("2125557634", "9178675903", "Hello from R 👋")
 ### Send a Picture Message
 
 ```r
-send_message("2125557634", "9178675903", "https://www.r-project.org/logo/Rlogo.png")
+send_message("2125557634", "9178675903", media_url = "https://www.r-project.org/logo/Rlogo.png")
 ```
 
 ### Send a Picture Message with Text

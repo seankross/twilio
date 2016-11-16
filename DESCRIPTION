@@ -1,7 +1,7 @@
 Package: twilio
 Type: Package
 Title: An interface to the Twilio API for R
-Version: 0.1.0.9005
+Version: 0.1.0.9006
 Authors@R: person("Sean", "Kross", , "sean@seankross.com", c("aut", "cre"))
 Description: Send and retrieve text and picture messages using the Twilio API.
 Depends:
