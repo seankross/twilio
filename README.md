@@ -51,6 +51,6 @@ messages <- get_messages()
 ### Get Media from a Message
 
 ```r
-gmedia <- et_message_media(messages[[1]]$sid)
-`browseURL(media[[1]]$url)
-``
+media <- get_message_media(messages[[1]]$sid)
+browseURL(media[[1]]$url)
+```
