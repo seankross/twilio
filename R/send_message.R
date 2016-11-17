@@ -48,7 +48,7 @@ send_message <- function(to, from, body = NULL, media_url = NULL){
 
   parsed <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE)
 
-  check_status(respparsed <- fromJSON(content(resp, "text", encoding = "UTF-8"), simplifyVector = FALSE))
+  check_status(resp)
 
   twilio_message(parsed)
 }
