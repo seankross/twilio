@@ -20,9 +20,10 @@
 #' }
 get_message_media <- function(message_sid){
   base_url <- "https://api.twilio.com/"
+  ua <- user_agent("https://github.com/seankross/twilio")
   path <- paste("2010-04-01", "Accounts", get_sid(), "Messages", message_sid, "Media.json", sep = "/")
   url <- modify_url(base_url, path = path)
-  resp <- GET(url, authenticate(get_sid(), get_token()))
+  resp <- GET(url, ua, authenticate(get_sid(), get_token()))
 
   if(http_type(resp) != "application/json"){
     stop("Twilio API did not return JSON.", call. = FALSE)

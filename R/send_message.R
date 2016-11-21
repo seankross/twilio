@@ -34,9 +34,10 @@ send_message <- function(to, from, body = NULL, media_url = NULL){
   }
 
   base_url <- "https://api.twilio.com/"
+  ua <- user_agent("https://github.com/seankross/twilio")
   path <- paste("2010-04-01", "Accounts", get_sid(), "Messages.json", sep = "/")
   url <- modify_url(base_url, path = path)
-  resp <- POST(url, authenticate(get_sid(), get_token()), body =
+  resp <- POST(url, ua, authenticate(get_sid(), get_token()), body =
                  list(To = to,
                       From = from,
                       Body = body,

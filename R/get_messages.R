@@ -21,9 +21,10 @@
 #' }
 get_messages <- function(page = 0, page_size = 50){
   base_url <- "https://api.twilio.com/"
+  ua <- user_agent("https://github.com/seankross/twilio")
   path <- paste("2010-04-01", "Accounts", get_sid(), "Messages.json", sep = "/")
   url <- modify_url(base_url, path = path, query = list(page = page, pagesize = page_size))
-  resp <- GET(url, authenticate(get_sid(), get_token()))
+  resp <- GET(url, ua, authenticate(get_sid(), get_token()))
 
   if(http_type(resp) != "application/json"){
     stop("Twilio API did not return JSON.", call. = FALSE)
