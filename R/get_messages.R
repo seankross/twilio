@@ -4,7 +4,7 @@
 #' @param page_size The number of messages per page. The maximum number allowed is 1000.
 #' @return A \code{twilio_message_log} object.
 #' @importFrom jsonlite fromJSON
-#' @importFrom httr modify_url GET authenticate http_type content
+#' @importFrom httr modify_url GET authenticate http_type content user_agent
 #' @importFrom purrr map
 #' @export
 #' @examples

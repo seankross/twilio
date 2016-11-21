@@ -3,7 +3,7 @@
 #' @param message_sid An SID for a message that contains media.
 #' @return A list containing media information.
 #' @importFrom jsonlite fromJSON
-#' @importFrom httr modify_url GET authenticate http_type content
+#' @importFrom httr modify_url GET authenticate http_type content user_agent
 #' @importFrom purrr map
 #' @export
 #' @examples

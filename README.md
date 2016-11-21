@@ -22,6 +22,8 @@ You should only need to do this once per session.
 ```r
 Sys.setenv(TWILIO_SID = "M9W4Ozq8BFX94w5St5hikg7UV0lPpH8e56")
 Sys.setenv(TWILIO_TOKEN = "483H9lE05V0Jr362eq1814Li2N1I424t")
+
+library(twilio)
 ```
 
 ### Send a Text Message
@@ -39,7 +41,8 @@ send_message("2125557634", "9178675903", media_url = "https://www.r-project.org/
 ### Send a Picture Message with Text
 
 ```r
-send_message("2125557634", "9178675903", "Do you like the new logo?", "https://www.r-project.org/logo/Rlogo.png")
+send_message("2125557634", "9178675903", "Do you like the new logo?",
+  "https://www.r-project.org/logo/Rlogo.png")
 ```
 
 ### Get Message Logs
@@ -48,9 +51,15 @@ send_message("2125557634", "9178675903", "Do you like the new logo?", "https://w
 messages <- get_messages()
 ```
 
+### Makes Logs into a Data Frame
+
+```r
+sms_data <- message_tbl(messages)
+```
+
 ### Get Media from a Message
 
 ```r
-media <- get_message_media(messages[[1]]$sid)
+media <- get_message_media(sms_data$sid[1])
 browseURL(media[[1]]$url)
 ```

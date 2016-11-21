@@ -1,7 +1,7 @@
 Package: twilio
 Type: Package
 Title: An interface to the Twilio API for R
-Version: 0.1.0.9008
+Version: 0.1.0.9012
 Authors@R: person("Sean", "Kross", , "sean@seankross.com", c("aut", "cre"))
 Description: Send and retrieve text and picture messages using the Twilio API.
 Depends:
@@ -9,7 +9,9 @@ Depends:
 Imports:
     purrr,
     httr,
-    jsonlite
+    jsonlite,
+    magrittr,
+    lubridate
 License: MIT + file LICENSE
 URL: http://github.com/seankross/twilio
 Encoding: UTF-8
