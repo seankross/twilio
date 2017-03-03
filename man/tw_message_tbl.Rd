@@ -4,17 +4,17 @@
 \alias{tw_message_tbl}
 \title{Make a Data Frame from a Messages List}
 \usage{
-tw_message_tbl(message_log)
+tw_message_tbl(messages_list)
 }
 \arguments{
-\item{message_log}{An S3 object with the class \code{twilio_messages_list}. Likely
+\item{messages_list}{An S3 object with the class \code{twilio_messages_list}. Likely
 the result of a call to \code{\link{tw_get_messages_list}}.}
 }
 \value{
 A data frame.
 }
 \description{
-Make a Data Frame from a Messages List
+Useful for turning a \code{twilio_messages_list} into a tidy data set.
 }
 \examples{
 \dontrun{

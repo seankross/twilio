@@ -13,7 +13,11 @@ tw_get_message_media(message_sid)
 A list containing media information.
 }
 \description{
-Get Media from a Message
+Media items that are attached to MMS messages, including photos and videos
+are stored by Twilio. This function returns a list of \code{twilio_media}
+objects, one for each piece of media in an MMS. Each object contains
+information about that piece of media including its URL, Media SID, and
+content type.
 }
 \examples{
 \dontrun{
@@ -24,7 +28,7 @@ Sys.setenv(TWILIO_SID = "M9W4Ozq8BFX94w5St5hikg7UV0lPpH8e56")
 Sys.setenv(TWILIO_TOKEN = "483H9lE05V0Jr362eq1814Li2N1I424t")
 
 # Get media information from a message
-tw_get_message_media("3eo8Jw86Lj6422NzWgb8QxXlD5c45U100v")
+tw_get_message_media("MMo8Jw86Lj6422NzWgb8QxXlD5c45U100v")
 
 }
 }
