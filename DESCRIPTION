@@ -1,8 +1,8 @@
 Package: twilio
 Type: Package
 Title: An interface to the Twilio API for R
-Version: 0.1.0.9015
-Authors@R: person("Sean", "Kross", , "sean@seankross.com", c("aut", "cre"))
+Version: 0.1.0
+Authors@R: person("Sean", "Kross", email = "sean@seankross.com", role = c("aut", "cre"))
 Description: Send and retrieve text and picture messages using the Twilio API.
 Depends:
     R (>= 3.1.0)
