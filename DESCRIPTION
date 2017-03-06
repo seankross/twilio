@@ -3,7 +3,10 @@ Type: Package
 Title: An Interface to the Twilio API for R
 Version: 0.1.0
 Authors@R: person("Sean", "Kross", email = "sean@seankross.com", role = c("aut", "cre"))
-Description: Send and retrieve text and picture messages using the Twilio API.
+Description: The Twilio web service provides an API for computer programs
+    to interact with telephony. The included functions wrap the SMS and MMS 
+    portions of Twilio's API, allowing users to send and receive text messages
+    from R. See <https://www.twilio.com/docs/> for more information.
 Depends:
     R (>= 3.1.0)
 Imports:

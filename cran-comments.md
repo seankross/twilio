@@ -1,6 +1,8 @@
 ## Release summary
 
-This is the first attempted CRAN release of twilio 0.1.0.
+This is the third attempted CRAN release of twilio 0.1.0. The URL in the
+`Description` section of the `DESCRIPTION` file has been put between angle
+brackets.
 
 ## Test environments
 
