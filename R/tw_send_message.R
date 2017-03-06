@@ -17,17 +17,17 @@
 #' Sys.setenv(TWILIO_TOKEN = "483H9lE05V0Jr362eq1814Li2N1I424t")
 #'
 #' # Send a simple text message
-#' send_message("2125557634", "9178675903", "Hello from R!")
+#' tw_send_message("2125557634", "9178675903", "Hello from R!")
 #'
 #' # Send a picture message
-#' send_message("2125557634", "9178675903", media_url = "https://www.r-project.org/logo/Rlogo.png")
+#' tw_send_message("2125557634", "9178675903", media_url = "https://www.r-project.org/logo/Rlogo.png")
 #'
 #' # Send a picture message with text
-#' send_message("2125557634", "9178675903", "Do you like the new logo?",
+#' tw_send_message("2125557634", "9178675903", "Do you like the new logo?",
 #'     "https://www.r-project.org/logo/Rlogo.png")
 #'
 #' }
-send_message <- function(to, from, body = NULL, media_url = NULL){
+tw_send_message <- function(to, from, body = NULL, media_url = NULL){
   if(is.null(body) && is.null(media_url)){
     stop("Please specify body, media_url, or both.",
          call. = FALSE)

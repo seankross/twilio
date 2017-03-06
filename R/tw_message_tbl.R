@@ -1,7 +1,9 @@
-#' Make a Data Frame from Message Logs
+#' Make a Data Frame from a Messages List
 #'
-#' @param message_log An S3 object with the class \code{twilio_message_log}. Likely
-#'   the result of a call to \code{\link{get_messages}}.
+#' Useful for turning a \code{twilio_messages_list} into a tidy data set.
+#'
+#' @param messages_list An S3 object with the class \code{twilio_messages_list}. Likely
+#'   the result of a call to \code{\link{tw_get_messages_list}}.
 #' @return A data frame.
 #'
 #' @importFrom magrittr %>% %<>%
@@ -17,16 +19,16 @@
 #' Sys.setenv(TWILIO_TOKEN = "483H9lE05V0Jr362eq1814Li2N1I424t")
 #'
 #' # Get messages sent to your account
-#' messages <- get_messages()
+#' messages <- tw_get_messages_list()
 #'
 #' # Create data frame from log
-#' sms_data <- message_tbl(messages)
+#' sms_data <- tw_message_tbl(messages)
 #'
 #' }
-message_tbl <- function(message_log){
-  stopifnot(identical(class(message_log), "twilio_message_log"))
+tw_message_tbl <- function(messages_list){
+  stopifnot(identical(class(messages_list), "twilio_messages_list"))
 
-  raw_log <- as.data.frame(do.call(rbind, message_log), stringsAsFactors = FALSE)
+  raw_log <- as.data.frame(do.call(rbind, messages_list), stringsAsFactors = FALSE)
   raw_log$date_created %<>% map(parse_date_time, orders = "%a %d %b %Y %H:%M:%S %z")
   raw_log$date_created <- do.call(c, raw_log$date_created)
   raw_log$date_updated %<>% map(parse_date_time, orders = "%a %d %b %Y %H:%M:%S %z")

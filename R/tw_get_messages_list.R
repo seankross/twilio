@@ -1,8 +1,11 @@
-#' Get Logs of Messages Sent to Your Account
+#' Get List of Messages Sent and Received from Your Account
 #'
-#' @param page The page number of the log you would like to retrieve. Starts at zero.
+#' Retrieves a list of Twilio SMS and MMS messages sent and receieved from your
+#' account.
+#'
+#' @param page The page number of the list you would like to retrieve. Starts at zero.
 #' @param page_size The number of messages per page. The maximum number allowed is 1000.
-#' @return A \code{twilio_message_log} object.
+#' @return A \code{twilio_messages_list} object.
 #' @importFrom jsonlite fromJSON
 #' @importFrom httr modify_url GET authenticate http_type content user_agent
 #' @importFrom purrr map
@@ -16,10 +19,10 @@
 #' Sys.setenv(TWILIO_TOKEN = "483H9lE05V0Jr362eq1814Li2N1I424t")
 #'
 #' # Get messages sent to your account
-#' messages <- get_messages()
+#' messages <- tw_get_messages_list()
 #'
 #' }
-get_messages <- function(page = 0, page_size = 50){
+tw_get_messages_list <- function(page = 0, page_size = 50){
   base_url <- "https://api.twilio.com/"
   ua <- user_agent("https://github.com/seankross/twilio")
   path <- paste("2010-04-01", "Accounts", get_sid(), "Messages.json", sep = "/")
@@ -36,7 +39,7 @@ get_messages <- function(page = 0, page_size = 50){
 
   structure(
     map(parsed$messages, twilio_message),
-    class = "twilio_message_log"
+    class = "twilio_messages_list"
   )
 }
 
