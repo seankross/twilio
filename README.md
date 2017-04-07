@@ -34,7 +34,7 @@ Sys.setenv(TWILIO_TOKEN = "483H9lE05V0Jr362eq1814Li2N1I424t")
 library(twilio)
 ```
 
-### Send a Text Message
+### Send a Text Message to Brian
 
 ```r
 tw_send_message("2125557634", "9178675903", "Hello from R 👋")
