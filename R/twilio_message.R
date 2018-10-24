@@ -15,6 +15,6 @@ print.twilio_message <- function(x, ...){
   cat("From: ", x$from, "\n",
       "To: ", x$to, "\n",
       "Body: ", x$body, "\n",
-      "Status: ", x$status, sep = "")
+      "Status: ", x$status, "\n", sep = "")
   invisible(x)
 }

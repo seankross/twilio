@@ -36,6 +36,7 @@ tw_message_tbl <- function(messages_list){
   raw_log$date_sent %<>% map(parse_date_time, orders = "%a %d %b %Y %H:%M:%S %z")
   raw_log$date_sent <- do.call(c, raw_log$date_sent)
   raw_log$error_code %<>% map(function(x){ifelse(is.null(x), NA, x)}) %>% unlist()
+  raw_log$price %<>% map(function(x){ifelse(is.null(x), NA, x)}) %>% unlist()
   raw_log$error_message %<>% map(function(x){ifelse(is.null(x), NA, x)}) %>% unlist()
   raw_log %>% map_if(is.list, unlist) %>% as.data.frame(stringsAsFactors = FALSE)
 }
