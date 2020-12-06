@@ -41,4 +41,3 @@ tw_send_message("2125557634", "9178675903", "Do you like the new logo?",
 
 }
 }
-
