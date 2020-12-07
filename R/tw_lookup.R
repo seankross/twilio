@@ -11,6 +11,6 @@ tw_lookup <- function(num, is_valid = FALSE) {
   .url$query <- list(Type = "carrier", CountryCode = "US")
   .url <- httr::build_url(.url)
   .resp <- httr::GET(.url, authenticate(get_sid(), get_token()))
-  parse_lookup(.resp)
+  parse_lookup(.resp, is_valid)
 }
 
