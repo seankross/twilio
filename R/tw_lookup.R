@@ -1,3 +1,34 @@
+#' Twilio Lookup 
+#' 
+#' Fetch number info from Twilio's number lookup service. Useful for validating numbers.
+#' 
+#' @param num A phone number to lookup.
+#' @param is_valid Return raw API output or logical that indicates whether \code{num} is valid (default).
+#' 
+#' @return A \code{list} or \code{logical} based on the \code{is_valid} flag.
+#' 
+#' @examples
+#' \dontrun{
+#'
+#' # Set API credentials
+#' # You only need to do this once per R session
+#' Sys.setenv(TWILIO_SID = "M9W4Ozq8BFX94w5St5hikg7UV0lPpH8e56")
+#' Sys.setenv(TWILIO_TOKEN = "483H9lE05V0Jr362eq1814Li2N1I424t")
+#'
+#' # Get messages sent to your account
+#' tw_lookup("+41757105871")
+#'
+#' }
+#' @export
+tw_lookup <- function(num, is_valid = FALSE) {
+  .url <- httr::parse_url("https://lookups.twilio.com/v1/PhoneNumbers")
+  .url$path <- append(.url$path, utils::URLencode(num))
+  .url$query <- list(Type = "carrier", CountryCode = "US")
+  .url <- httr::build_url(.url)
+  .resp <- httr::GET(.url, authenticate(get_sid(), get_token()))
+  parse_lookup(.resp, is_valid)
+}
+
 #' @keywords Internal
 #' @noRd
 #' @importFrom httr content
@@ -19,20 +50,3 @@ parse_lookup <- function(resp, is_valid) {
   }
   out
 }
-
-#' @title tw_lookup
-#' @description Fetch number info from \href{https://www.twilio.com/docs/lookup}{Twilio's number lookup service}. Useful for validating numbers.
-#' @param num \code{(character)} of the number to lookup
-#' @param is_valid \code{(logical)} \code{FALSE} (*Default*) returns the info returned by the API as a list, or \code{FALSE} for invalid numbers. \code{TRUE} will return a logical that indicates whether \code{num} is valid. Useful for subsetting.
-#' @return A \code{list} or \code{logical} based on the \code{is_valid} flag.
-#' @export
-
-tw_lookup <- function(num, is_valid = FALSE) {
-  .url <- httr::parse_url("https://lookups.twilio.com/v1/PhoneNumbers")
-  .url$path <- append(.url$path, utils::URLencode(num))
-  .url$query <- list(Type = "carrier", CountryCode = "US")
-  .url <- httr::build_url(.url)
-  .resp <- httr::GET(.url, authenticate(get_sid(), get_token()))
-  parse_lookup(.resp, is_valid)
-}
-
