@@ -20,21 +20,23 @@
 #' tw_lookup("+41757105871")
 #'
 #' }
+#' @importFrom httr parse_url build_url GET authenticate
+#' @importFrom utils URLencode
 #' @export
 tw_lookup <- function(num, is_valid = FALSE, country_code="US") {
-  .url <- httr::parse_url("https://lookups.twilio.com/v1/PhoneNumbers")
-  .url$path <- append(.url$path, utils::URLencode(num))
-  .url$query <- list(Type = "carrier", CountryCode = country_code)
-  .url <- httr::build_url(.url)
-  .resp <- httr::GET(.url, authenticate(get_sid(), get_token()))
-  parse_lookup(.resp, is_valid)
+  url <- parse_url("https://lookups.twilio.com/v1/PhoneNumbers")
+  url$path <- append(url$path, URLencode(num))
+  url$query <- list(Type = "carrier", CountryCode = country_code)
+  url <- build_url(url)
+  resp <- GET(url, authenticate(get_sid(), get_token()))
+  parse_lookup(resp, is_valid)
 }
 
 #' @keywords Internal
 #' @noRd
-#' @importFrom httr content
+#' @importFrom httr content status_code
 parse_lookup <- function(resp, is_valid) {
-  out <- httr::content(resp, encoding = "UTF-8")
+  out <- content(resp, encoding = "UTF-8")
   if(!(status_code(resp) %in% 200:201)){
     warning(
       sprintf(
