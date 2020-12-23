@@ -4,12 +4,14 @@
 \alias{tw_lookup}
 \title{Twilio Lookup}
 \usage{
-tw_lookup(num, is_valid = FALSE)
+tw_lookup(num, is_valid = FALSE, country_code = "US")
 }
 \arguments{
 \item{num}{A phone number to lookup.}
 
 \item{is_valid}{Return raw API output or logical that indicates whether \code{num} is valid (default).}
+
+\item{country_code}{The ISO country code of the phone number to fetch. This is used to specify the country when the phone number is provided in a national format.}
 }
 \value{
 A \code{list} or \code{logical} based on the \code{is_valid} flag.
