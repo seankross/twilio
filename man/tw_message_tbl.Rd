@@ -32,4 +32,3 @@ sms_data <- tw_message_tbl(messages)
 
 }
 }
-
