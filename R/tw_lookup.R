@@ -4,6 +4,7 @@
 #' 
 #' @param num A phone number to lookup.
 #' @param is_valid Return raw API output or logical that indicates whether \code{num} is valid (default).
+#' @param country_code The ISO country code of the phone number to fetch. This is used to specify the country when the phone number is provided in a national format.
 #' 
 #' @return A \code{list} or \code{logical} based on the \code{is_valid} flag.
 #' 
@@ -20,10 +21,10 @@
 #'
 #' }
 #' @export
-tw_lookup <- function(num, is_valid = FALSE) {
+tw_lookup <- function(num, is_valid = FALSE, country_code="US") {
   .url <- httr::parse_url("https://lookups.twilio.com/v1/PhoneNumbers")
   .url$path <- append(.url$path, utils::URLencode(num))
-  .url$query <- list(Type = "carrier", CountryCode = "US")
+  .url$query <- list(Type = "carrier", CountryCode = country_code)
   .url <- httr::build_url(.url)
   .resp <- httr::GET(.url, authenticate(get_sid(), get_token()))
   parse_lookup(.resp, is_valid)
